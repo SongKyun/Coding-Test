@@ -10,15 +10,10 @@ vector<int> solution(vector<string> keyinput, vector<int> board) {
     int y_min = -(board[1] / 2), y_max = board[1] / 2;
     
     for(const string& key : keyinput) {
-        if(key == "up") {
-            position[1]++;
-        } else if (key == "down") {
-            position[1]--;
-        } else if (key == "left") {
-            position[0]--;
-        } else if (key == "right") {
-            position[0]++;
-        }
+        if(key == "up") { position[1]++; }
+        else if (key == "down") { position[1]--; }
+        else if (key == "left") { position[0]--; }
+        else if (key == "right") { position[0]++; }
         
         if (position[0] < x_min) position[0] = x_min;
         if (position[0] > x_max) position[0] = x_max;
