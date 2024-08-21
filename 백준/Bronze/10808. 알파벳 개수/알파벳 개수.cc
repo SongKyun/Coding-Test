@@ -3,8 +3,6 @@
 
 using namespace std;
 
-typedef long long ll;
-
 string str;
 int cnt[26];
 
@@ -14,7 +12,8 @@ int main() {
         cnt[a - 'a']++;
     }
     
-    for(int i = 0; i < 26; i++) cout << cnt[i] << " ";
+    for(int i = 0; i < 26; i++)
+        cout << cnt[i] << " ";
     
     return 0;
 }
