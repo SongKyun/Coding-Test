@@ -1,119 +1,78 @@
 #include <iostream>
-
 using namespace std;
+//백준 1991 트리 순회
 
-// 노드 구조체
-struct Node
-{
-	char data;		// 노드에 저장되는 문자
-	Node* left;		// 왼쪽 자식 노드 포인터
-	Node* right;	// 오른쪽 자식 노드 포인터
-
-	// 생성자 : 값을 받아서 새로운 노드를 생성
-	Node(char parent)
-	{
-		data = parent;
-		left = right = nullptr;
-	}
+struct TREE{ //트리를 표현하는 구조체 ->'\0' NULL문자로 초기화
+    char left = '\0';
+    char right = '\0';
+    char data = '\0';
 };
 
-// 삽입 함수
-Node* insert(Node* root, char parent, char left, char right)
-{
-	// 트리가 비어 있다면 새로운 노드를 생성하여 반환
-	if (root == nullptr)
-	{
-		return new Node(parent);
-	}
+typedef struct TREE tree;
 
-	// 부모 노드를 찾고 자식 연결
-	if (root->data == parent)
-	{
-		// 왼쪽 자식 연결
-		if(left != '.')
-		{
-			root->left = new Node(left);
-		}
+tree arr[27];
 
-		if (right != '.')
-		{
-			root->right = new Node(right);
-		}
-	}
-	// 부모 노드를 찾을 때까지 왼쪽, 오른쪽 자식 노드를 재귀적으로 탐색
-	else
-	{
-		if (root->left) insert(root->left, parent, left, right);
-		if (root->right) insert(root->right, parent, left, right);
-	}
-
-	return root;
+void preorder(tree a){
+    // 전위순회(루트 왼쪽 오른쪽)
+    if(a.data == '\0' || a.data == '.'){
+        return;
+    }
+    cout << a.data;
+    if(a.left != '\0' && a.left != '.'){
+        preorder(arr[a.left-'A']);
+    }
+    if(a.right != '\0' && a.right != '.'){
+        preorder(arr[a.right-'A']);
+    }
 }
-
-// xx 순회 xxorder traversal
-
-// 전위 순회 Pre
-// 루트 -> 왼쪽 -> 오른쪽
-void preorder(Node* root)
-{
-	if (root)
-	{
-		cout << root->data;		// 현재 노드 출력
-		preorder(root->left);	// 왼쪽
-		preorder(root->right);	// 오른쪽
-	}
+ 
+void order(tree a){ 
+    // 중위순회(왼쪽 루트 오른쪽)
+    if(a.left != '\0' && a.left != '.'){
+        order(arr[a.left-'A']);
+    }
+     if(a.data == '\0' || a.data == '.'){
+        return;
+    }
+    if(a.data != '\0' && a.data != '.'){
+        cout << a.data;
+    }
+ 
+    if(a.right != '\0' && a.right != '.'){
+        order(arr[a.right-'A']);
+    }
 }
-
-// 중위 순회 In
-// 왼쪽 -> 루트 -> 오른쪽
-void inorder(Node* root)
-{
-	if (root) // 재귀의 기저사례 root == nullptr이면 종료
-	{
-		// 함수 재호출(재귀(스택) : 쌓였다가 기저 조건 만나면 하나씩 복귀) 
-		inorder(root->left);	// 왼쪽
-		cout << root->data;		// 현재 노드 출력
-		inorder(root->right);	// 오른쪽
-	}
+ 
+void lastorder(tree a){ 
+    //후위순회(왼쪽 오른쪽 루트)
+ 
+    if(a.left != '\0' && a.left != '.'){
+        lastorder(arr[a.left-'A']);
+    }
+    if(a.right != '\0' && a.right != '.'){
+        lastorder(arr[a.right-'A']);
+    }
+    if(a.data != '\0' && a.data != '.'){
+        cout << a.data;
+    }
 }
-
-// 후위 순회 Post
-// 왼쪽 -> 오른쪽 -> 루트
-void postorder(Node* root)
-{
-	if (root)
-	{
-		postorder(root->left);
-		postorder(root->right);
-		cout << root->data;
-	}
-}
-
-int main()
-{
-	Node* root = nullptr; // 루트 노드 초기화
-
-	int N;
-	cin >> N;
-
-	char parent, left, right;
-
-	for (int i = 0; i < N; i++)
-	{
-		cin >> parent >> left >> right;
-		if (root == nullptr)
-		{
-			root = new Node(parent); // 루트 노드 생성
-		}
-		root = insert(root, parent, left, right);
-	}
-
-	// 순회 결과 출력
-	preorder(root);
-	cout << endl;
-	inorder(root);
-	cout << endl;
-	postorder(root);
-
-	return 0;
-}
+ 
+int main(void){
+    int n;
+    cin >> n;
+    /*노드의 데이터,왼쪽자식,오른쪽 자식 입력받아서 저장*/
+    for(int i = 0;i<n;i++){
+        char a,b,c;
+        cin >> a >> b >> c;
+        arr[a-'A'].data = a; // 0
+        arr[a-'A'].left = b;
+        arr[a-'A'].right = c;
+    }
+    
+    /*각각 전위,중위,후위 순회*/
+    preorder(arr['A'-'A']);
+    cout << '\n';
+    order(arr['A'-'A']);
+    cout << '\n';
+    lastorder(arr['A'-'A']);
+} // 맞는지 확인
