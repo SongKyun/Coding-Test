@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <vector>
 using namespace std;
 
 int main() {
@@ -9,6 +10,8 @@ int main() {
     // 테스트 케이스 개수 입력 받기
     int n;
     cin >> n;
+    // 깔끔한 출력을 위해 결과값 저장 컨테이너
+    vector<string> results;
     // 문자열을 조건에 맞게 순회하면서 키로거를 기록
     for (int i = 0; i < n; i++)
     {
@@ -44,8 +47,10 @@ int main() {
                 L.insert(p,c); // p 앞에 c를 삽입
             }
         }
-        for (auto c : L) cout << c;
-        cout << endl;
+        string res ="";
+        for (auto c : L) res+=c;
+        results.push_back(res);
     }
+    for (const auto& s : results) cout << s << endl;
     return 0;
 }
