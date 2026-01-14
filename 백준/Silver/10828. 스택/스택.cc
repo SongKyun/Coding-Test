@@ -4,31 +4,13 @@
 #include <vector>
 using namespace std;
 
-const int MX = 1000005;
-int dat[MX];
-int pos;
-
-void push(int val)
-{
-    dat[pos++] = val;
-}
-
-void pop()
-{
-    pos--;
-}
-
-int top()
-{
-    return dat[pos-1];
-}
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int n;
     cin >> n;
+    stack<int> S;
     while (n--)
     {
         string c;
@@ -37,27 +19,26 @@ int main() {
         {
             int t;
             cin >> t;
-            push(t);
+            S.push(t);
         }
         else if (c == "pop")
         {
-            if (pos == 0)
-                cout << -1 << endl;
+            if (S.empty()) cout << -1 << endl;
             else
             {
-                cout <<top() << endl;
-                pop();
+                cout << S.top() << endl;
+                S.pop();
             }
         }
         else if (c == "size")
-            cout << pos << endl;
+            cout << S.size() << endl;
         else if (c == "empty")
-            cout << (int)(pos == 0) << endl;
+            cout << (int)S.empty() << endl;
         else
         {
-            if (pos == 0)
+            if (S.empty())
                 cout << -1 << endl;
-            else cout << top() << endl;
+            else cout << S.top() << endl;
         }
     }
 }
