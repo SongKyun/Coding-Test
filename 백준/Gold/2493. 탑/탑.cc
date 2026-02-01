@@ -35,7 +35,7 @@ int main()
         // 결과 출력
         if (s.empty())
         {
-            cout << 0 << '\n';
+            cout << 0 << " ";
         }
         else
         {
