@@ -15,8 +15,7 @@ int main()
     while (q.size() != 1)
     {
         q.pop();
-        int tmp = q.front();
-        q.push(tmp);
+        q.push(q.front());
         q.pop();
     }
     cout << q.front();
